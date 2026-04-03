@@ -1,4 +1,4 @@
-package aTMachine;
+package aTMachine; // change as needed for your setup
 import java.util.Scanner;
 
 public class ATMCODE {
