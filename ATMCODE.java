@@ -14,7 +14,7 @@ public class ATMCODE {
 			if (pin %2 == 0) {
 				System.out.printf("%n%nHow much money would you like: ");
 				int money = input.nextInt();
-				if (money < 0 && money > 100) {
+				if (money < 0 || money > 500) { // i did this wrong originally i believe
 					System.out.printf("%nError: cannot dispense more than $500");
 					System.out.printf("%n%nHow much money would you like: ");
 					money = input.nextInt();
