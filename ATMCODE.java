@@ -11,7 +11,7 @@ public class ATMCODE {
 		pin = input.nextInt();
 		
 		if (pin > 0) {
-			if (pin %2 == 0) {
+			if (pin %2 != 0) { // Type 1 customer
 				System.out.printf("%n%nHow much money would you like: ");
 				int money = input.nextInt();
 				if (money < 0 || money > 500) { // i did this wrong originally i believe
@@ -27,9 +27,52 @@ public class ATMCODE {
 							"You will recieve:", "Twenties:", money20, "Tens:",
 							money10,"Fives:", money5,"Singles:", money1);
 				}
-			}
+			}else {
+				System.out.printf("%n%nHow much money would you like: ");
+				int money = input.nextInt();
+				if (money <= 0 || money > 500) { // i did this wrong originally i believe
+					System.out.printf("%nError: cannot dispense more than $500");
+					System.out.printf("%n%nHow much money would you like: ");
+					money = input.nextInt();
+				} else if (money %5 != 0){
+					System.out.printf("%nThe value you you entered isn't divisible by 5 and will be charged at a 1 dollar. Do you accept? (y/n)");
+					char userInput = input.next().charAt(0);
+					while (userInput != 'y'){
+						System.out.printf("%n%nHow much money would you like: ");
+						money = input.nextInt();
+						if (money <= 0 || money > 500) { // i did this wrong originally i believe
+						System.out.printf("%nError: cannot dispense more than $500");
+						System.out.printf("%n%nHow much money would you like: ");
+						money = input.nextInt();
+						}
+						if (money %5 != 0){
+						System.out.printf("%nThe value you you entered isn't divisible by 5 and will be charged at a 1 dollar. Do you accept? (y/n)");
+						userInput = input.next().charAt(0);
+						}	
+					}
+					if (userInput == 'y' || userInput == 'Y') {
+					money -= 1;	
+					int money20 = money/20;
+					int money10 = (money - (money20*20))/10;
+					int money5 = (money - (money10*10) - (money20*20))/5;
+					int money1 = (money - (money20*20) - (money10*10) - (money5*5));
+					System.out.printf("%n%s%n%s %d%n%s %d%n%s %d%n%s %d",
+							"You will recieve:", "Twenties:", money20, "Tens:",
+							money10,"Fives:", money5,"Singles:", money1);
+					} else {
+						
+						System.out.printf("%n%nHow much money would you like: ");
+						money = input.nextInt();
+			
+						
+					}
+
+					
+				}
+				 
+				
 		}else {
-			//GOODBYE
+			System.out.println("goodbye");
 		}
 		
 	}
