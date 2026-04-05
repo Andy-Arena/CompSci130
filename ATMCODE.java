@@ -7,20 +7,24 @@ public class ATMCODE {
         Scanner input = new Scanner(System.in);
         int pin = 0;
 
-        System.out.print("Please enter your pin: ");
-        pin = input.nextInt();
+        do {
+            System.out.print("Please enter your pin: ");
+            pin = input.nextInt();
 
-        if (pin > 0) {
+            if (pin < 0) {
+                break;
+            }
+
             if (pin % 2 != 0) {
                 // Type 1 customer
-                System.out.printf("%n%nHow much money would you like: ");
+                System.out.printf("How much money would you like: ");
                 int money = input.nextInt();
 
                 while (money <= 0 || money > 500) {
                     System.out.printf(
-                        "%nError: cannot dispense more than $500"
+                        "Error: cannot dispense more than $500\n"
                     );
-                    System.out.printf("%n%nHow much money would you like: ");
+                    System.out.printf("How much money would you like: ");
                     money = input.nextInt();
                 }
 
@@ -33,7 +37,7 @@ public class ATMCODE {
                     (money5 * 5));
 
                 System.out.printf(
-                    "\nYou will receive: \nTwenties: %d\nTens:%d\nFives:%d\nSingles:%d",
+                    "You will receive: \nTwenties: %d\nTens:%d\nFives:%d\nSingles:%d\n\n",
                     money20,
                     money10,
                     money5,
@@ -41,42 +45,40 @@ public class ATMCODE {
                 );
             } else {
                 // Type 2 customer
-                System.out.printf("%n%nHow much money would you like: ");
+                System.out.printf("How much money would you like: ");
                 int money = input.nextInt();
 
                 while (money <= 0 || money > 500) {
                     System.out.printf(
-                        "%nError: cannot dispense more than $500"
+                        "Error: cannot dispense more than $500\n"
                     );
-                    System.out.printf("%n%nHow much money would you like: ");
+                    System.out.printf("How much money would you like: ");
                     money = input.nextInt();
                 }
 
                 if (money % 5 != 0) {
                     System.out.printf(
-                        "%nThe value you you entered isn't divisible by 5 and will be charged at a 1 dollar. Do you accept? (y/n)"
+                        "The value you you entered isn't divisible by 5 and will be charged at a 1 dollar. Do you accept? (y/n): "
                     );
                     char userInput = input.next().toLowerCase().charAt(0);
 
                     while (userInput != 'y') {
-                        System.out.printf(
-                            "%n%nHow much money would you like: "
-                        );
+                        System.out.printf("How much money would you like: ");
                         money = input.nextInt();
 
                         if (money <= 0 || money > 500) {
                             System.out.printf(
-                                "%nError: cannot dispense more than $500"
+                                "Error: cannot dispense more than $500\n"
                             );
                             System.out.printf(
-                                "%n%nHow much money would you like: "
+                                "How much money would you like: "
                             );
                             money = input.nextInt();
                         }
 
                         if (money % 5 != 0) {
                             System.out.printf(
-                                "%nThe value you you entered isn't divisible by 5 and will be charged at a 1 dollar. Do you accept? (y/n)"
+                                "The value you you entered isn't divisible by 5 and will be charged at a 1 dollar. Do you accept? (y/n): "
                             );
                             userInput = input.next().toLowerCase().charAt(0);
                         } else {
@@ -96,25 +98,22 @@ public class ATMCODE {
                             (money5 * 5));
 
                         System.out.printf(
-                            "\nYou will receive: \nTwenties: %d\nTens:%d\nFives:%d\nSingles:%d",
+                            "You will receive: \nTwenties: %d\nTens:%d\nFives:%d\nSingles:%d\n\n",
                             money20,
                             money10,
                             money5,
                             money1
                         );
-                    } else {
                     }
                 } else {
-                    System.out.printf("%n%nHow much money would you like: ");
+                    System.out.printf("How much money would you like: ");
                     money = input.nextInt();
 
                     while (money <= 0 || money > 500) {
                         System.out.printf(
-                            "%nError: cannot dispense more than $500"
+                            "Error: cannot dispense more than $500\n"
                         );
-                        System.out.printf(
-                            "%n%nHow much money would you like: "
-                        );
+                        System.out.printf("How much money would you like: ");
                         money = input.nextInt();
                     }
 
@@ -127,7 +126,7 @@ public class ATMCODE {
                         (money5 * 5));
 
                     System.out.printf(
-                        "\nYou will receive: \nTwenties: %d\nTens:%d\nFives:%d\nSingles:%d",
+                        "You will receive: \nTwenties: %d\nTens:%d\nFives:%d\nSingles:%d\n\n",
                         money20,
                         money10,
                         money5,
@@ -135,9 +134,9 @@ public class ATMCODE {
                     );
                 }
             }
-        } else {
-            System.out.println("goodbye");
-        }
+        } while (pin > 0);
+
+        System.out.println("goodbye");
 
         input.close();
     }
