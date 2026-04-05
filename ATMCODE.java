@@ -8,7 +8,7 @@ public class ATMCODE {
         int pin = 0;
 
         do {
-            System.out.print("Please enter your pin: ");
+            System.out.print("Enter your PIN please: ");
             pin = input.nextInt();
 
             if (pin < 0) {
@@ -17,68 +17,59 @@ public class ATMCODE {
 
             if (pin % 2 != 0) {
                 // Type 1 customer
-                System.out.printf("How much money would you like: ");
+                System.out.printf("Enter the amount to be withdrawn: ");
                 int money = input.nextInt();
 
                 while (money <= 0 || money > 500) {
-                    System.out.printf(
-                        "Error: cannot dispense more than $500\n"
-                    );
-                    System.out.printf("How much money would you like: ");
+                    System.out.printf("Invalid amount: %d\n", money);
+                    System.out.printf("Enter the amount to be withdrawn: ");
                     money = input.nextInt();
                 }
 
-                int money20 = money / 20;
-                int money10 = (money - (money20 * 20)) / 10;
-                int money5 = (money - (money10 * 10) - (money20 * 20)) / 5;
-                int money1 = (money -
-                    (money20 * 20) -
-                    (money10 * 10) -
-                    (money5 * 5));
+                int money10 = money / 10;
+                int money5 = (money - (money10 * 10)) / 5;
+                int money1 = money - (money10 * 10) - (money5 * 5);
 
                 System.out.printf(
-                    "You will receive: \nTwenties: %d\nTens:%d\nFives:%d\nSingles:%d\n\n",
-                    money20,
+                    "You are receiving the following bills:\n\tNumber of $10 bills: %d\n\tNumber of $5 bills: %d\n\tNumber of $1 bills: %d\n\n",
                     money10,
                     money5,
                     money1
                 );
             } else {
                 // Type 2 customer
-                System.out.printf("How much money would you like: ");
+                System.out.printf("Enter the amount to be withdrawn: ");
                 int money = input.nextInt();
 
                 while (money <= 0 || money > 500) {
-                    System.out.printf(
-                        "Error: cannot dispense more than $500\n"
-                    );
-                    System.out.printf("How much money would you like: ");
+                    System.out.printf("Invalid amount: %d\n", money);
+                    System.out.printf("Enter the amount to be withdrawn: ");
                     money = input.nextInt();
                 }
 
                 if (money % 5 != 0) {
                     System.out.printf(
-                        "The value you you entered isn't divisible by 5 and will be charged at a 1 dollar. Do you accept? (y/n): "
+                        "You are a type 2 customer, but the amount you requested was %d.\nYou will be charged $1 for changing your default setting.\nDo you want to be charged $1? (y/n) ",
+                        money
                     );
                     char userInput = input.next().toLowerCase().charAt(0);
 
                     while (userInput != 'y') {
-                        System.out.printf("How much money would you like: ");
+                        System.out.printf("Enter the amount to be withdrawn: ");
                         money = input.nextInt();
 
                         if (money <= 0 || money > 500) {
+                            System.out.printf("Invalid amount: %d\n", money);
                             System.out.printf(
-                                "Error: cannot dispense more than $500\n"
-                            );
-                            System.out.printf(
-                                "How much money would you like: "
+                                "Enter the amount to be withdrawn: "
                             );
                             money = input.nextInt();
                         }
 
                         if (money % 5 != 0) {
                             System.out.printf(
-                                "The value you you entered isn't divisible by 5 and will be charged at a 1 dollar. Do you accept? (y/n): "
+                                "You are a type 2 customer, but the amount you requested was %d.\nYou will be charged $1 for changing your default setting.\nDo you want to be charged $1? (y/n) ",
+                                money
                             );
                             userInput = input.next().toLowerCase().charAt(0);
                         } else {
@@ -88,46 +79,30 @@ public class ATMCODE {
 
                     if (userInput == 'y') {
                         money -= 1;
-                        int money20 = money / 20;
-                        int money10 = (money - (money20 * 20)) / 10;
-                        int money5 =
-                            (money - (money10 * 10) - (money20 * 20)) / 5;
-                        int money1 = (money -
-                            (money20 * 20) -
-                            (money10 * 10) -
-                            (money5 * 5));
+                        int money10 = money / 10;
+                        int money5 = (money - (money10 * 10)) / 5;
+                        int money1 = money - (money10 * 10) - (money5 * 5);
 
                         System.out.printf(
-                            "You will receive: \nTwenties: %d\nTens:%d\nFives:%d\nSingles:%d\n\n",
-                            money20,
+                            "You are receiving the following bills:\n\tNumber of $10 bills: %d\n\tNumber of $5 bills: %d\n\tNumber of $1 bills: %d\n\n",
                             money10,
                             money5,
                             money1
                         );
                     }
                 } else {
-                    System.out.printf("How much money would you like: ");
-                    money = input.nextInt();
-
                     while (money <= 0 || money > 500) {
-                        System.out.printf(
-                            "Error: cannot dispense more than $500\n"
-                        );
-                        System.out.printf("How much money would you like: ");
+                        System.out.printf("Invalid amount: %d\n", money);
+                        System.out.printf("Enter the amount to be withdrawn: ");
                         money = input.nextInt();
                     }
 
-                    int money20 = money / 20;
-                    int money10 = (money - (money20 * 20)) / 10;
-                    int money5 = (money - (money10 * 10) - (money20 * 20)) / 5;
-                    int money1 = (money -
-                        (money20 * 20) -
-                        (money10 * 10) -
-                        (money5 * 5));
+                    int money10 = money / 10;
+                    int money5 = (money - (money10 * 10)) / 5;
+                    int money1 = money - (money10 * 10) - (money5 * 5);
 
                     System.out.printf(
-                        "You will receive: \nTwenties: %d\nTens:%d\nFives:%d\nSingles:%d\n\n",
-                        money20,
+                        "You are receiving the following bills:\n\tNumber of $10 bills: %d\n\tNumber of $5 bills: %d\n\tNumber of $1 bills: %d\n\n",
                         money10,
                         money5,
                         money1
@@ -136,7 +111,7 @@ public class ATMCODE {
             }
         } while (pin > 0);
 
-        System.out.println("goodbye");
+        System.out.println("The program will terminate!");
 
         input.close();
     }
