@@ -1,4 +1,4 @@
-package programmingAssignment2;
+package programingAssignment2;
 import java.util.Scanner;
 
 public class ElectricBill {
@@ -6,24 +6,32 @@ public class ElectricBill {
 	//public static double kWH = 0.0;
 	
 	// Method to determine customer type
-	public static int customerType() {
-		System.out.print("Enter Customer Type: R,r for Residential or B, b for Business:  ");
+	public static boolean customerType() {
+		boolean whatType = true;
+		System.out.printf("Enter Customer Type: R,r (Residential) or B, b (Business):%n");
 		char custType = input.next().charAt(0);
+		
 		if (custType == 'R' || custType == 'r') {
-			return 1;
+			whatType = true; // Changed to true from 1
+		}else if (custType == 'B'||custType == 'b'){
+			whatType = false; // Changed to false from 0
 		}else {
-			return 0;
+			whatType = customerType();
+//			System.out.printf("Error%nEnter Customer Type: R,r (Residential) or B, b (Business):%n");
+//		custType = input.next().charAt(0);
 		}
+		
+		return whatType;
 	}
 	
 	
 	// Method to calculate residential bill
 	public static double calcResidential() {
 		// variable to calculate the bill for residental
-		double userEnergy = 0.0,energyCharge = 0.12, flatCharge = 8.07,resSalesTax = 0.05;
+		double userEnergy = 0.0,energyCharge = 0.12, flatCharge = 8.07,resSalesTax = 1.05;
 		
 		// input to get kilowatt hours for residential
-		System.out.printf("Please enter your energy usage in kWh: ");
+		System.out.printf("Please enter your energy usage in kWh:%n");
 		userEnergy = input.nextDouble();
 		
 		return ((userEnergy * energyCharge) + flatCharge) * resSalesTax;
@@ -33,7 +41,7 @@ public class ElectricBill {
 	public static double calcBusiness() {
 		
 		// variables to calculate bill for business
-		double userEnergy = 0.0,energyChargeb4 = 0.17,energyChargeAfter = 0.12, flatCharge = 17.07,busSalesTax = 0.08;
+		double userEnergy = 0.0,energyChargeb4 = 0.17,energyChargeAfter = 0.12, flatCharge = 17.07,busSalesTax = 1.08;
 		
 		// input to get kilowatt hours and number of prem channels
 		System.out.printf("Please enter your energy usage in kWh: %n");
@@ -51,28 +59,36 @@ public class ElectricBill {
 	
 	// Method to Display amount due
 	public static void displayBill(double bill) {
-		System.out.printf("%nAmount Due = %.2f%n30 Days%nAverage Cost per Day = %.2f", bill, (bill/30));
+		System.out.printf("%nAmount Due = %.2f%n30 Billing Days%nAverage Cost per Day = %.2f", bill, (bill/30));
 	}
 	
 	// Method to run the installment plan
 	public static void installmentPlan(double bill) {
 		System.out.println("--------------------------------");
-		System.out.printf("If you do not want to make a onetime payment, we have an easy installment plan for you. This is an intrest charge plan.%nSign up for the Installment Payment Plan (y/n)?");
-		System.out.printf("Number of required installments? (2, 3, or 4)");
-		int userChoice = input.nextInt();
-		switch (userChoice) {
-		case 2:
-			System.out.printf("With 2 installment options your bill of $%.2f will be worth $%.2f.%nEach installment will be worth $%.2f", bill, bill*1.0535,(bill*1.0535/2) );
-			break;
-		case 3:
-			System.out.printf("With 3 installment options your bill of $%.2f will be worth $%.2f.%nEach installment will be worth $%.2f", bill, bill*1.055,(bill*1.055/3) );
-			break;
-		case 4:
-			System.out.printf("With 4 installment options your bill of $%.2f will be worth $%.2f.%nEach installment will be worth $%.2f", bill, bill*1.0575,(bill*1.0575/4) );
+		System.out.printf("If you do not want to make a onetime payment, we have an easy installment plan for you. This is an intrest charge plan.%nSign up for the Installment Payment Plan (y/n)?%n");
+		char x = input.next().charAt(0);
+		switch (x){
+		case 'y':case 'Y':
+			System.out.printf("Number of required installments? (2, 3, or 4):%n");
+			int userChoice = input.nextInt();
+			switch (userChoice) {
+			case 2:
+				System.out.printf("With 2 installment options your bill of $%.2f will be worth $%.2f.%nEach installment will be worth $%.2f", bill, bill*1.0535,(bill*1.0535/2) );
+				break;
+			case 3:
+				System.out.printf("With 3 installment options your bill of $%.2f will be worth $%.2f.%nEach installment will be worth $%.2f", bill, bill*1.055,(bill*1.055/3) );
+				break;
+			case 4:
+				System.out.printf("With 4 installment options your bill of $%.2f will be worth $%.2f.%nEach installment will be worth $%.2f", bill, bill*1.0575,(bill*1.0575/4) );
+				break;
+			default:
+				System.out.println("Error");
+				break;
+			}
+		case 'n':case 'N':
 			break;
 		default:
-			System.out.println("Error");
-			break;
+			System.out.print("Error");
 		}
 	}
 	
@@ -87,7 +103,7 @@ public class ElectricBill {
 			deltaBill = (bill-lastBill)/lastBill;
 		}else {deltaBill = 0;}
 		if (deltaBill != 0) {
-			System.out.printf("Your energy consumption is %s by %.2d when comparted to the previous one.", (deltaBill > 0 ? "increasing" : "decreasing"));
+			System.out.printf("Your energy consumption is %s by %.2f%% when comparted to the previous one.", (deltaBill > 0 ? "increasing" : "decreasing"), (deltaBill*100));
 		}else {
 			System.out.printf("Your energy consumption has stayed the same when compared to the previous one.");
 		}
@@ -108,25 +124,26 @@ public class ElectricBill {
 			switch (userInput) {
 				case 'i':case'I':
 					// do you really want a plan?
-					System.out.printf("Do you really wish to sign up for the installment plan?(y/n): ");
-					char accept = input.next().charAt(0);
+					//System.out.printf("Do you really wish to sign up for the installment plan?(y/n):%n");
+					//char accept = input.next().charAt(0);
 					
 					// mini switch menu
-					switch (accept){
-					case 'y':case 'Y':
+					//switch (accept){
+					//case 'y':case 'Y':
 						installmentPlan(billing); // call installment plan
-						break;
-					case 'n':case'N':
+					//	break;
+					//case 'n':case'N':
 						// just break
-						break;
-					default:
-						System.out.print("error"); // temp message
-					}
+					//	break;
+					//default:
+					//	System.out.print("error"); // temp message
+					//}
 					break;
 				case 'v':case'V':
 					changeInConsumption(billing);
 					break;
 				case 'e':case 'E':
+					System.out.printf("%nGoodbye");
 					x = true;
 					break;
 				default:
@@ -140,12 +157,12 @@ public class ElectricBill {
 	
 	
 	
-	static void main(String[] args) {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		double amountDue = 0;
 		
-		int customer = customerType();
-		if (customer == 1) {
+		boolean customer = customerType(); // changed to boolean type
+		if (customer == true) {
 			amountDue = calcResidential();
 		}else {
 			 amountDue = calcBusiness();
@@ -155,3 +172,4 @@ public class ElectricBill {
 	}
 
 }
+
