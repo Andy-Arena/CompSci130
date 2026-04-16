@@ -46,7 +46,7 @@ public class ElectricBill {
 		// input to get kilowatt hours and number of prem channels
 		System.out.printf("Please enter your energy usage in kWh: %n");
 		userEnergy = input.nextDouble();
-		System.out.print("How many Premium channels? %n");
+		System.out.printf("How many Premium channels? %n");
 		int premChannel = input.nextInt();
 		
 		if (userEnergy <= 1200) {
